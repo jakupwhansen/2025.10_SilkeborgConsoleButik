@@ -1,4 +1,6 @@
-﻿Console.WriteLine();
+﻿using System.Reflection.Metadata;
+
+Console.WriteLine();
 Butik butik = new Butik();
 butik.GUI();
 class Butik
@@ -22,6 +24,7 @@ class Butik
             if(vare != null)
             {
                 kurv.Add(vare);
+                Console.WriteLine(vare.printVare());
             }
         }
         //Vi har nu købt færdig, nu skal du udskrive samlet PRIS på alle varer i kurven.
@@ -136,6 +139,21 @@ class Lager
 
         beholdning.Add(v);//Tilføjere ét objekt af typen Vare
 
+        TilbudsVare tb1 = new TilbudsVare();
+        tb1.id = 10;
+        tb1.pris = 35;
+        tb1.navn = "Kaffe tilbud";
+        tb1.procenter = 20;
+        beholdning.Add(tb1);
+    }
+}
+class TilbudsVare:Vare
+{
+    public int procenter = 20;
+    public override string printVare()
+    {
+        return "TILBUD på procenter:"+procenter+ " id:" + id + " navn:" + navn + " pris:" + pris;
+
     }
 }
 
@@ -144,4 +162,8 @@ class Vare
     public int id;
     public string navn;
     public double pris;
+    public virtual string printVare()
+    {
+        return "id:" + id + " navn:" + navn + " pris:" + pris;
+    }
 }
